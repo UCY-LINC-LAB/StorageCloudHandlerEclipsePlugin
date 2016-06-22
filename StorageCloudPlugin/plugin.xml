@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="Sample Category"
+            id="com.mytest.commands.category">
+      </category>
+     
+     <command
+            name="Set Up Command"
+            categoryId="com.mytest.commands.category"
+            id="storage.cloud.dropdox.actions.setup">
+      </command>
+      
+      
+      <command
+            name="Pull Command"
+            categoryId="com.mytest.commands.category"
+            id="storage.cloud.file.dropdox.actions.pull">
+      </command>
+      
+      <command
+            name="Delete Add Index Command"
+            categoryId="com.mytest.commands.category"
+            id="storage.cloud.file.dropdox.actions.delete">
+      </command>
+      
+      <command
+            name="My Account Command"
+            categoryId="com.mytest.commands.category"
+            id="storage.cloud.file.dropdox.actions.my.account">
+      </command>
+      
+       <command
+            name="Push Command"
+            categoryId="com.mytest.commands.category"
+            id="storage.cloud.file.dropdox.actions.push">
+      </command>
+      
+      <command
+            name="Push remove Index Command"
+            categoryId="com.mytest.commands.category"
+            id="storage.cloud.file.dropdox.actions.pushIndex">
+      </command>
+      
+      <command
+            name="Remove Index"
+            categoryId="com.mytest.commands.category"
+            id="storage.cloud.file.dropdox.actions.RemoveIndex">
+      </command>
+      
+        <command
+            name="Share With"
+            categoryId="com.mytest.commands.category"
+            id="storage.cloud.file.dropdox.actions.ShareWith">
+      </command>
+      
+       <command
+            name="History File"
+            categoryId="com.mytest.commands.category"
+            id="storage.cloud.dropdox.actions.History">
+      </command>
+      
+      
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      
+      <handler
+            commandId="storage.cloud.dropdox.actions.setup"
+            class="handlers.dropbox.wizard.setup.SetupHandler">
+      </handler>
+      
+      <handler
+            commandId="storage.cloud.file.dropdox.actions.pull"
+            class="handlers.file.dropbox.actions.PullHandler">
+      </handler>
+      
+      <handler
+            commandId="storage.cloud.file.dropdox.actions.delete"
+            class="handlers.file.dropbox.actions.Delete_RemoveHandler">
+      </handler>
+      <handler
+            commandId="storage.cloud.file.dropdox.actions.my.account"
+            class="handlers.file.dropbox.actions.MyAccountHandler">
+      </handler>
+      
+      <handler
+            commandId="storage.cloud.file.dropdox.actions.push"
+            class="handlers.file.dropbox.actions.PushHandler">
+      </handler>
+      
+      <handler
+            commandId="storage.cloud.file.dropdox.actions.pushIndex"
+            class="handlers.file.dropbox.actions.AddIndexHandler">
+      </handler>
+      
+       <handler
+            commandId="storage.cloud.file.dropdox.actions.RemoveIndex"
+            class="handlers.file.dropbox.actions.RemoveIndexHandler">
+      </handler>
+      
+        <handler
+            commandId="storage.cloud.file.dropdox.actions.ShareWith"
+            class="handlers.file.dropbox.actions.ShareWithHandler">
+      </handler>
+      
+      <handler
+            commandId=" storage.cloud.dropdox.actions.History"
+            class="handlers.file.dropbox.actions.HistoryFileHandler">
+      </handler>
+     
+   </extension>
+   
+   
+   
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:team.main?">
+        
+              <menu
+               id="team.StorageCloud"
+               label="Storage Cloud Setups">
+	              <menu
+	               id="team.StorageCloud.CloudProvider.Dropbox.setups"
+	               label="Dropbox"
+	               icon="/icons/DropboxImage.gif">
+	               
+				            <command
+				                  commandId="storage.cloud.dropdox.actions.setup"
+				                  label= "Set Up DropBox"
+				                  mnemonic="S"
+				                  id="com.mytest.menus.dropbox.setupAuth">
+					
+	           				 </command>
+	           				 
+	        		</menu>
+	        		
+	        		<menu
+		               id="team.StorageCloud.CloudProvider.GoogleDrive.setup"
+		               label="GoogleDrive"
+		               icon="/icons/GoogleDrive.gif">
+		               
+			               <command
+			                  commandId="com.mytest.commands.newCommand"
+			                  label= "No Active"
+			                  mnemonic="A"
+			                  id="com.mytest.menus.sampleCommand.newCommand">
+		                  
+		             </command>
+	        	 </menu>	 
+        	 </menu>
+        	 
+        	 
+			  <menu
+  	               id="team.StorageCloud.CloudProvider.Dropbox.actions"
+                   label="Dropbox"
+	               icon="/icons/DropboxImage.gif">
+						           <command
+						                  commandId="storage.cloud.file.dropdox.actions.pull"
+						                  mnemonic="E"
+						                  id="storage.cloud.file.dropdox.actions.pull.Menu"
+						                  label= "Pull From Drobox"
+						                   icon="/icons/actions/Pull.gif">
+	                			 </command>
+	                			  <command
+						                  commandId="storage.cloud.file.dropdox.actions.delete"
+						                  mnemonic="C"
+						                  id="storage.cloud.file.dropdox.actions.delete.Menu"
+						                  label= "Remove From Drobox "
+						                   icon="/icons/actions/Delete.gif">
+	                			 </command>
+	                			 <command
+						                  commandId="storage.cloud.file.dropdox.actions.my.account"
+						                  mnemonic="D"
+						                  id="storage.cloud.file.dropdox.actions.my.account.Menu"
+						                  label= "My Drobox Account"
+						                   icon="/icons/actions/account.gif">
+	                			 </command>
+	                			
+	                			 <command
+						                  commandId="storage.cloud.file.dropdox.actions.ShareWith"
+						                  mnemonic="D"
+						                  id="storage.cloud.file.dropdox.actions.shareWith"
+						                  label= "Share Project"
+						                   icon="/icons/actions/ShareLink.gif">
+	                			 </command>
+	                			
+
+									<command
+						                  commandId="storage.cloud.dropdox.actions.History"
+						                  mnemonic="D"
+						                  id="storage.cloud.file.dropdox.actions.historyfile"
+						                  label= "History File"
+						                  icon="/icons/actions/History.gif">
+	                			 </command>
+									
+	                			 <command
+						                  commandId="storage.cloud.file.dropdox.actions.push"
+						                  mnemonic="A"
+						                  id="storage.cloud.file.dropdox.actions.push.Menu"
+						                  label= "Push To Dropbox"
+						                   icon="/icons/actions/Push.gif">
+	                			 </command>
+	                			 
+	                			 <command
+						                  commandId="storage.cloud.file.dropdox.actions.pushIndex"
+						                  mnemonic="B"
+						                  id="storage.cloud.file.dropdox.actions.pushIndex.Menu"
+						                  label= "Add to Index"
+						                   icon="/icons/actions/addindex.gif">
+	                			 </command>
+	                			 
+	                			 <command
+						                  commandId="storage.cloud.file.dropdox.actions.RemoveIndex"
+						                  mnemonic="B"
+						                  id="storage.cloud.file.dropdox.actions.pushIndex.Menu"
+						                  label= "Remove Index"
+						                   icon="/icons/actions/removeIndex.gif">
+	                			 </command>
+	                			 
+	          </menu>
+	          <menu
+		               id="team.StorageCloud.CloudProvider.GoogleDrive.actions"
+		               label="GoogleDrive"
+		               icon="/icons/GoogleDrive.gif">
+		               
+			               <command
+			                  commandId="com.mytest.commands.newCommand"
+			                  label= "No Active"
+			                  mnemonic="A"
+			                  id="com.mytest.menus.sampleCommand.newCommand">
+		                  
+		             </command>
+	        	 </menu>	 
+	          
+	          
+      </menuContribution>
+   </extension>
+   <extension 
+       point="org.eclipse.ui.importWizards">  
+      <wizard 
+         id="Dropbox.Import" 
+         name="Import from Dropbox" 
+         class="handlers.dropbox.wizard.importdown.ImportHandles" 
+         icon="./icons/DropboxImage.gif">  
+      </wizard> 
+   </extension> 
+   
+   
+</plugin>
