@@ -58,9 +58,8 @@ public class PullHandler extends AbstractHandler {
 
 		HashMap<String, String> localFiles = new HashMap<String, String>();
 		for (int i = 0; i < Fb.filesPathsdropbox.size(); i++) {
-			// System.out.println(Fb.filesPathsdropbox.get(i).toLowerCase() +"
-			// <----->"+Fp.filesPathslocal.get(i));
-			localFiles.put(Fb.filesPathsdropbox.get(i).toLowerCase(), Fp.filesPathslocal.get(i));
+			//System.out.println(Fb.filesPathsdropbox.get(i) +" <----->"+Fp.filesPathslocal.get(i));
+			localFiles.put(Fb.filesPathsdropbox.get(i), Fp.filesPathslocal.get(i));
 		}
 
 		readConf input = new readConf();
@@ -71,7 +70,8 @@ public class PullHandler extends AbstractHandler {
 			handler.cloudStorageHandlerinit(input.params);
 
 			ArrayList<String> listOfFiles = new ArrayList<String>();
-			String path = "/" + Fp.projectName;
+			//System.out.print(Fb.CloudStartPath);
+			String path = Fb.CloudStartPath+Fp.projectName;
 			try {
 				handler.ListOfAllFile(listOfFiles, path);
 			} catch (ExceptionHandler e) {
@@ -94,18 +94,18 @@ public class PullHandler extends AbstractHandler {
 						erroScreen.open();
 						return null;
 					}
-
-					long TimestampClient = new DateTime(tpt.get("client_modified")).getMillis();
-					//long TimestampServer = new DateTime(tpt.get("server_modified")).getMillis();
+					//System.out.println(tpt.toString()+"----->" );
+					//long TimestampClient = new DateTime(tpt.get("client_modified")).getMillis();
+					long TimestampServer = new DateTime(tpt.get("server_modified")).getMillis();
 
 					File f = new File(localFiles.get(listOfFiles.get(i)));
 					long localTimestamp = f.lastModified();
 
-//					System.out.println("Time stamp local " + f.lastModified());
-//					System.out.println("Time stamp for client_modified " + TimestampClient);
-//					System.out.println("Time stamp for server_modified " + TimestampServer);
+					//System.out.println("Time stamp local " + f.lastModified());
+					//System.out.println("Time stamp for client_modified " + TimestampServer);
+					//System.out.println("Time stamp for server_modified " + TimestampServer);
 
-					if (TimestampClient > localTimestamp) {
+					if (TimestampServer > localTimestamp) {
 						listOfFilesDown.add(listOfFiles.get(i));
 
 					}

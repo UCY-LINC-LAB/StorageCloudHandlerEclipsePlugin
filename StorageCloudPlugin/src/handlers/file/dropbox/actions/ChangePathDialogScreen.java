@@ -1,4 +1,4 @@
-package handlers.dropbox.wizard.importdown;
+package handlers.file.dropbox.actions;
 
 import java.util.ArrayList;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -14,31 +14,37 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-public class ImportDialogScreen1 extends TitleAreaDialog {
+public class ChangePathDialogScreen extends TitleAreaDialog {
 
 	private ArrayList<String> SelectName;
 
 	Button cb[];
-	boolean[] select;
+
 	private boolean complete = false;
-	String ProjectName="";
+	public String filepath;
 	
 	private boolean next=false;
 	private boolean previous=false;
-	
-	public ImportDialogScreen1(Shell parentShell, ArrayList<String> temp1) {
+	private String CurrentPath;
+
+	public ChangePathDialogScreen(Shell parentShell, ArrayList<String> temp1, String path) {
 
 		super(parentShell);
 		SelectName = temp1;
 		cb = new Button[SelectName.size()];
-		select = new boolean[SelectName.size()];
+		if(!path.isEmpty()){
+			CurrentPath=path;
+		}
+		else{
+			CurrentPath="Root Directory";
+		}
 	}
 
 	@Override
 	public void create() {
 		super.create();
-		setTitle("Dropbox Import");
-		setMessage("Import project from Dropbox", IMessageProvider.INFORMATION);
+		setTitle("Change Directory");
+		setMessage("Folders at Dropbox", IMessageProvider.INFORMATION);
 
 	}
 
@@ -48,7 +54,12 @@ public class ImportDialogScreen1 extends TitleAreaDialog {
 
 		Label lblNewLabel = new Label(area, SWT.NONE);
 		lblNewLabel.setFont(SWTResourceManager.getFont("Calibri", 10, SWT.NORMAL));
-		lblNewLabel.setText("Select the project that you want to import:");
+		lblNewLabel.setText("Select the Path that you want storage this project");
+		new Label(area, SWT.NONE);
+		
+		Label lblNewLabel1 = new Label(area, SWT.NONE);
+		lblNewLabel1.setFont(SWTResourceManager.getFont("Calibri", 10, SWT.NORMAL));
+		lblNewLabel1.setText("Cuurent Path: " + CurrentPath);
 		new Label(area, SWT.NONE);
 
 		for (int i = 0; i < SelectName.size(); i++) {
@@ -63,7 +74,7 @@ public class ImportDialogScreen1 extends TitleAreaDialog {
 
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
-
+		
 		Button btnPr = createButton(parent, IDialogConstants.NO_ID, "< Previous", true);
 		btnPr.addMouseListener(new MouseAdapter() {
 			@Override
@@ -82,7 +93,7 @@ public class ImportDialogScreen1 extends TitleAreaDialog {
 			}
 		});
 		
-		Button btnPull = createButton(parent, IDialogConstants.OK_ID, "Import", true);
+		Button btnPull = createButton(parent, IDialogConstants.OK_ID, "Here", true);
 		btnPull.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
@@ -99,7 +110,6 @@ public class ImportDialogScreen1 extends TitleAreaDialog {
 			}
 		});
 
-
 	}
 
 	@Override
@@ -109,12 +119,6 @@ public class ImportDialogScreen1 extends TitleAreaDialog {
 
 	@Override
 	protected void okPressed() {
-		for (int i = 0; i < SelectName.size(); i++) {
-			if (cb[i].getSelection()) {
-				ProjectName = SelectName.get(i);
-				break;
-			}
-		}
 		complete = true;
 		super.okPressed();
 
@@ -122,7 +126,7 @@ public class ImportDialogScreen1 extends TitleAreaDialog {
 	protected void Next() {
 		for (int i = 0; i < SelectName.size(); i++) {
 			if (cb[i].getSelection()) {
-				ProjectName = SelectName.get(i);
+				filepath = SelectName.get(i);
 				break;
 			}
 		}

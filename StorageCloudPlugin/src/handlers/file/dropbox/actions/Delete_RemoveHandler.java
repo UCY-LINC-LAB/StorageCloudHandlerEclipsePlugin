@@ -13,6 +13,7 @@ import cy.ac.ucy.cs.linc.storagecloud.dropbox.DropboxHandler;
 import cy.ac.ucy.cs.linc.storagecloud.dropbox.exceptions.ExceptionHandler;
 import support.actions.plugin.CompleteDialogScreen;
 import support.actions.plugin.ErrorDialogScreen;
+import support.actions.plugin.FindDroboxPath;
 import support.actions.plugin.FindLocalParth;
 import support.actions.plugin.readConf;
 import handlers.file.dropbox.actions.Delete_RemoveDialogScreen;
@@ -48,7 +49,11 @@ public class Delete_RemoveHandler extends AbstractHandler {
 		FindLocalParth Fp = new FindLocalParth();
 		Fp.getSelection(event);
 
-		String project = Fp.projectName;
+	
+		
+		int pozision=Fp.filesPathslocal.get(0).lastIndexOf('\\');
+		System.out.println(Fp.filesPathslocal.get(0).substring(0, pozision+1));
+		
 		Shell xx = win.getShell();
 		readConf input = new readConf();
 
@@ -57,7 +62,12 @@ public class Delete_RemoveHandler extends AbstractHandler {
 			ICloudStorageHandler handler = new DropboxHandler();
 			handler.cloudStorageHandlerinit(input.params);
 			ArrayList<String> files = new ArrayList<String>();
-			String projectpath = "/" + project;
+			
+			
+			FindDroboxPath Fb = new FindDroboxPath();
+			Fb.Droboxpath(Fp.filesPathslocal, Fp.projectName);
+			
+			String projectpath =  Fb.CloudStartPath+Fp.projectName;
 			try {
 				handler.ListOfAllFile(files, projectpath);
 			} catch (ExceptionHandler e) {

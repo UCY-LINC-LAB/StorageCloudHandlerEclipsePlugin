@@ -14,6 +14,7 @@ import cy.ac.ucy.cs.linc.storagecloud.dropbox.DropboxHandler;
 import cy.ac.ucy.cs.linc.storagecloud.dropbox.exceptions.ExceptionHandler;
 import support.actions.plugin.CompleteDialogScreen;
 import support.actions.plugin.ErrorDialogScreen;
+import support.actions.plugin.FindDroboxPath;
 import support.actions.plugin.FindLocalParth;
 import support.actions.plugin.readConf;
 import org.eclipse.swt.widgets.Shell;
@@ -48,7 +49,16 @@ public class HistoryFileHandler extends AbstractHandler {
 		FindLocalParth Fp = new FindLocalParth();
 		Fp.getSelection(event);
 
-		String project = "/" + Fp.projectName;
+
+		
+		int pozision=Fp.filesPathslocal.get(0).lastIndexOf('\\');
+		System.out.println(Fp.filesPathslocal.get(0).substring(0, pozision+1));
+		
+		FindDroboxPath Fb = new FindDroboxPath();
+		Fb.Droboxpath(Fp.filesPathslocal, Fp.projectName);
+		
+		String projectpath =  Fb.CloudStartPath+Fp.projectName;
+		
 		Shell xx = win.getShell();
 
 		readConf input = new readConf();
@@ -61,7 +71,7 @@ public class HistoryFileHandler extends AbstractHandler {
 			ArrayList<String> Files = new ArrayList<String>();
 
 			try {
-				handler.ListOfAllFile(Files, project);
+				handler.ListOfAllFile(Files,projectpath);
 			} catch (ExceptionHandler e) {
 				ErrorDialogScreen erroScreen = new ErrorDialogScreen(xx);
 				erroScreen.create("Error History",

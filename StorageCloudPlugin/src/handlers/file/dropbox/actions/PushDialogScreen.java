@@ -16,6 +16,12 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import cy.ac.ucy.cs.linc.storagecloud.ICloudStorageHandler;
+import cy.ac.ucy.cs.linc.storagecloud.dropbox.DropboxHandler;
+import cy.ac.ucy.cs.linc.storagecloud.dropbox.exceptions.ExceptionHandler;
+import support.actions.plugin.ErrorDialogScreen;
+import support.actions.plugin.readConf;
+
 public class PushDialogScreen extends TitleAreaDialog {
 
 	private  ArrayList<String> SelectName;
@@ -23,12 +29,15 @@ public class PushDialogScreen extends TitleAreaDialog {
 	Button cb[]; 
 	boolean[] select;
 	private boolean complete =false;
+	public boolean change=false;
+	private String Project;
 	
-	public PushDialogScreen(Shell parentShell, ArrayList<String> temp1) {
+	public PushDialogScreen(Shell parentShell, ArrayList<String> temp1,String ProjectName) {
 		super(parentShell);
 		SelectName=temp1;
 		cb=new Button[SelectName.size()]; 
-		select= new boolean[SelectName.size()]; 
+		select= new boolean[SelectName.size()];
+		Project=ProjectName;
 	}
 
 @Override
@@ -70,6 +79,15 @@ public class PushDialogScreen extends TitleAreaDialog {
   
   @Override
   protected void createButtonsForButtonBar(Composite parent) {
+	  
+	  Button btnChange = createButton(parent,IDialogConstants.NEXT_ID, "Select Folder", true);
+	  btnChange.addMouseListener(new MouseAdapter() {
+	    	@Override
+	    	public void mouseDoubleClick(MouseEvent e) {
+	    		PressedChange();
+	    		
+	    	}
+	    });
 	    Button btnPull = createButton(parent, IDialogConstants.OK_ID, "Push", true);
 	    btnPull.addMouseListener(new MouseAdapter() {
 	    	@Override
@@ -105,7 +123,7 @@ public class PushDialogScreen extends TitleAreaDialog {
 		  }
 	  }
 	  complete =true;
-	  super.okPressed();
+	  super .okPressed();
 	 
   }
  
@@ -114,5 +132,11 @@ public class PushDialogScreen extends TitleAreaDialog {
   }
   
   
+  protected void PressedChange (){
+	  ChangePath t= new ChangePath();
+	  t.ChangePathed(Project,getShell());
+  }
   
+
+
 } 

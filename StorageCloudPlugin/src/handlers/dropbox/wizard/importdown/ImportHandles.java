@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Shell;
 import support.actions.plugin.CompleteDialogScreen;
 import support.actions.plugin.CreateLocalPath;
 import support.actions.plugin.ErrorDialogScreen;
+import support.actions.plugin.FindDroboxPath;
 import support.actions.plugin.readConf;
 
 /**
@@ -40,7 +41,8 @@ public class ImportHandles implements IWorkbenchWizard {
 	IWorkbench wb = PlatformUI.getWorkbench();
 	IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 	IWorkbenchPage page = win.getActivePage();
-
+	String path = "";
+	String Project;
 	@Override
 	public void addPages() {
 		// TODO Auto-generated method stub
@@ -195,7 +197,7 @@ public class ImportHandles implements IWorkbenchWizard {
 			handler.cloudStorageHandlerinit(input.params);
 
 			ArrayList<String> projects = new ArrayList<String>();
-			String path = "";
+		
 			try {
 				handler.ListOfFolder(projects, path);
 			} catch (ExceptionHandler e) {
@@ -208,14 +210,45 @@ public class ImportHandles implements IWorkbenchWizard {
 			ImportDialogScreen1 Screen1 = new ImportDialogScreen1(xx, projects);
 			Screen1.create();
 			Screen1.open();
-
-			if (Screen1.status()) {
+			
+			
+			int choose=Screen1.status();
+			
+			if(choose==2){
+				path=path+"/"+Screen1.ProjectName;
+				Project=Screen1.ProjectName;
+				init( arg0,  arg1);
+			}
+			
+			if(choose==1){
+				if(!path.isEmpty()){
+					int thesh=path.lastIndexOf("/");
+					path=path.substring(0,thesh);
+				}
+				init( arg0,  arg1);
+			}
+			
+			if (choose==3) {
+				
+				if(!Screen1.ProjectName.isEmpty()){
+					path=path+"/"+Screen1.ProjectName;
+					Project=Screen1.ProjectName;
+				}
+				else{
+					ErrorDialogScreen erroScreen = new ErrorDialogScreen(xx);
+					erroScreen.create("Error Import", "Selection Error: Cannot define Selected Project");
+					erroScreen.open();
+					return;
+				}
+				
+				System.out.println(path);
 				System.out.println(Screen1.ProjectName);
+				System.out.println(Project);
 
 				ArrayList<String> files = new ArrayList<String>();
-				String projectpath = "/" + Screen1.ProjectName;
+				
 				try {
-					handler.ListOfAllFile(files, projectpath);
+					handler.ListOfAllFile(files, path);
 				} catch (ExceptionHandler e) {
 					ErrorDialogScreen erroScreen = new ErrorDialogScreen(xx);
 					erroScreen.create("Error Import", "Connection Error: Cannot Browse Files from Dropbox Project.");
@@ -237,7 +270,7 @@ public class ImportHandles implements IWorkbenchWizard {
 						}
 					}
 
-					IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(Screen1.ProjectName);
+					IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(Project);
 
 					if (!project.exists()) {
 						IProgressMonitor monitor = null;
@@ -259,12 +292,14 @@ public class ImportHandles implements IWorkbenchWizard {
 
 					CreateLocalPath clp = new CreateLocalPath();
 
-					clp.dbPathToLocalPath(importFiles, pathproject);
+					System.out.println(importFiles);
+					clp.dbPathToLocalPath(importFiles, pathproject,project.getName());
 
 					for (int i = 0; i < importFiles.size(); i++) {
 
 						try {
 							handler.CloneFileOrContainer(importFiles.get(i), clp.LocalPath.get(i));
+							
 						} catch (ExceptionHandler e) {
 							ErrorDialogScreen erroScreen = new ErrorDialogScreen(xx);
 							erroScreen.create("Error Import", "Connection Error: Cannot import files from Dropbox.");
@@ -272,7 +307,21 @@ public class ImportHandles implements IWorkbenchWizard {
 							return;
 						}
 					}
-
+					
+					FindDroboxPath Fd =new FindDroboxPath();
+					
+					String wordkspace_location=ResourcesPlugin.getWorkspace().getRoot().getLocation().toString();
+				 	int last=wordkspace_location.lastIndexOf("/");
+				 	String wordkspace=wordkspace_location.substring(last+1,wordkspace_location.length() );
+				 
+				 	String CloudStartPath=wordkspace_location+"/"+project.getName()+"/";
+				 	
+				 	int thesh=path.lastIndexOf("/");
+					path=path.substring(0,thesh);
+					path=path+"/";
+				
+					Fd.writeforProperties(CloudStartPath, path);
+					
 					CompleteDialogScreen complete = new CompleteDialogScreen(xx);
 					complete.create("Successful Import", "All files have been import from Dropbox.");
 					complete.open();

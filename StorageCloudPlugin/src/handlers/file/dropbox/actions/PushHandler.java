@@ -74,7 +74,7 @@ public class PushHandler extends AbstractHandler {
 		}
 
 		Shell xx = win.getShell();
-		PushDialogScreen newScreen = new PushDialogScreen(xx, Fp.filesPathslocal);
+		PushDialogScreen newScreen = new PushDialogScreen(xx, Fp.filesPathslocal,Fp.projectName);
 		newScreen.create();
 		newScreen.open();
 

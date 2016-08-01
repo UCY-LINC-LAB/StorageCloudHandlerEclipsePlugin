@@ -12,6 +12,7 @@ import cy.ac.ucy.cs.linc.storagecloud.ICloudStorageHandler;
 import cy.ac.ucy.cs.linc.storagecloud.dropbox.DropboxHandler;
 import cy.ac.ucy.cs.linc.storagecloud.dropbox.exceptions.ExceptionHandler;
 import support.actions.plugin.ErrorDialogScreen;
+import support.actions.plugin.FindDroboxPath;
 import support.actions.plugin.FindLocalParth;
 import support.actions.plugin.readConf;
 import org.eclipse.swt.widgets.Shell;
@@ -46,15 +47,21 @@ public class ShareWithHandler extends AbstractHandler {
 		FindLocalParth Fp = new FindLocalParth();
 		Fp.getSelection(event);
 		
-		String project=Fp.projectName;
+		int pozision=Fp.filesPathslocal.get(0).lastIndexOf('\\');
+		System.out.println(Fp.filesPathslocal.get(0).substring(0, pozision+1));
+		
+		FindDroboxPath Fb = new FindDroboxPath();
+		Fb.Droboxpath(Fp.filesPathslocal, Fp.projectName);
+		
+		String projectpath =  Fb.CloudStartPath+Fp.projectName;
 		Shell xx = win.getShell();
 		
-		ShareWithDialogScreen newScreen = new ShareWithDialogScreen(xx,project);
+		ShareWithDialogScreen newScreen = new ShareWithDialogScreen(xx,projectpath);
 		newScreen.create();
 		newScreen.open();
 		
 		if(newScreen.complete){
-			project="/"+project;
+		
 			String email =newScreen.email;
 			readConf input = new readConf();
 
@@ -63,7 +70,7 @@ public class ShareWithHandler extends AbstractHandler {
 				handler.cloudStorageHandlerinit(input.params);
 				
 				try {
-					handler.ShareProjectWithEmail(project, email);
+					handler.ShareProjectWithEmail(projectpath, email);
 				} catch (ExceptionHandler e) {
 					ErrorDialogScreen erroScreen = new ErrorDialogScreen(xx);
 					erroScreen.create("Error Share", "EITHER the given e-mail is NOT valid OR There is a Connection Error");
