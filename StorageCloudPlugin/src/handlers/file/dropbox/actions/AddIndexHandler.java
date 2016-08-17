@@ -10,7 +10,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import support.actions.plugin.CreateIgnore;
 import support.actions.plugin.FindIgnore;
-import support.actions.plugin.FindLocalParth;
+import support.actions.plugin.FindLocalPath;
 import support.actions.plugin.ReadIgnore;
 import org.eclipse.swt.widgets.Shell;
 
@@ -44,7 +44,7 @@ public class AddIndexHandler extends AbstractHandler {
 	 */
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 
-		FindLocalParth Fp = new FindLocalParth();
+		FindLocalPath Fp = new FindLocalPath();
 		Fp.getSelection(event);
 
 		String oper_syste = System.getProperty("os.name");

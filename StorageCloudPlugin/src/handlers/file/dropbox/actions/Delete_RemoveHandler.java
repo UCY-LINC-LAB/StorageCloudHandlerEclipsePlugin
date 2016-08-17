@@ -14,7 +14,7 @@ import cy.ac.ucy.cs.linc.storagecloud.dropbox.exceptions.ExceptionHandler;
 import support.actions.plugin.CompleteDialogScreen;
 import support.actions.plugin.ErrorDialogScreen;
 import support.actions.plugin.FindDroboxPath;
-import support.actions.plugin.FindLocalParth;
+import support.actions.plugin.FindLocalPath;
 import support.actions.plugin.readConf;
 import handlers.file.dropbox.actions.Delete_RemoveDialogScreen;
 import org.eclipse.swt.widgets.Shell;
@@ -46,7 +46,7 @@ public class Delete_RemoveHandler extends AbstractHandler {
 	 */
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 
-		FindLocalParth Fp = new FindLocalParth();
+		FindLocalPath Fp = new FindLocalPath();
 		Fp.getSelection(event);
 
 	

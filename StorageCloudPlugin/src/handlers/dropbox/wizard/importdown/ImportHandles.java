@@ -171,22 +171,7 @@ public class ImportHandles implements IWorkbenchWizard {
 
 	@Override
 	public void init(IWorkbench arg0, IStructuredSelection arg1) {
-		// TODO Auto-generated method stub
-		// IProject project =
-		// ResourcesPlugin.getWorkspace().getRoot().getProject("aaaaaa");
-		// System.out.println(project.getFullPath());
-		// if (!project.exists()) {
-		// IProgressMonitor monitor = null;
-		// try {
-		// project.create(monitor);
-		// project.open(monitor);
-		// } catch (CoreException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		//
-		// }
-
+	
 		Shell xx = win.getShell();
 
 		readConf input = new readConf();
@@ -241,9 +226,7 @@ public class ImportHandles implements IWorkbenchWizard {
 					return;
 				}
 				
-				System.out.println(path);
-				System.out.println(Screen1.ProjectName);
-				System.out.println(Project);
+		
 
 				ArrayList<String> files = new ArrayList<String>();
 				
@@ -288,11 +271,11 @@ public class ImportHandles implements IWorkbenchWizard {
 
 					IPath mypath = project.getLocation();
 					String pathproject = mypath.toString();
-					System.out.println(pathproject);
+					
 
 					CreateLocalPath clp = new CreateLocalPath();
 
-					System.out.println(importFiles);
+					
 					clp.dbPathToLocalPath(importFiles, pathproject,project.getName());
 
 					for (int i = 0; i < importFiles.size(); i++) {

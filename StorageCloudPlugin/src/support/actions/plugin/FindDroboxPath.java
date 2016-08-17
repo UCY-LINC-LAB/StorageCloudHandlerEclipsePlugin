@@ -71,6 +71,7 @@ public class FindDroboxPath {
 				input.close();					
 			} 
 			catch (FileNotFoundException e) {
+				writeforProperties( filepath,"/");
 				return "/";
 			} 
 			catch (IOException e) {

@@ -16,7 +16,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-public class FindLocalParth {
+public class FindLocalPath {
 	IWorkbench wb = PlatformUI.getWorkbench();
 	IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 	
@@ -31,7 +31,7 @@ public class FindLocalParth {
 	
 	public String projectName;
 	
-	public FindLocalParth(){
+	public FindLocalPath(){
 		
 	}
 	

@@ -48,9 +48,8 @@ public class ReadIgnore {
     	
 	}
 	
-	// kanei remove ola ta path apo to FindLocalParth pou uparxoyn sto 
-	// ignore file
-	public void Ignore(FindLocalParth fl){
+
+	public void Ignore(FindLocalPath fl){
 		boolean flag[]=new boolean [fl.filesPathslocal.size()] ;
 		//int size =fl.filesPathslocal.size();
 		for (int i=0; i<fl.filesPathslocal.size(); i++){
@@ -72,7 +71,7 @@ public class ReadIgnore {
 		fl.filesPathslocal=temp;
 	}
 
-	public void RemoveIgnore(FindLocalParth fl){
+	public void RemoveIgnore(FindLocalPath fl){
 		for (int i=0; i<fl.filesPathslocal.size(); i++){
 			
 			if(filesIgnore.containsKey(fl.filesPathslocal.get(i))){	

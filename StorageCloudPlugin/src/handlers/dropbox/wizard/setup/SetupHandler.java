@@ -18,7 +18,7 @@ import cy.ac.ucy.cs.linc.storagecloud.dropbox.exceptions.ExceptionHandler;
 import org.eclipse.swt.widgets.Shell;
 
 import support.actions.plugin.ErrorDialogScreen;
-import support.actions.plugin.FindLocalParth;
+import support.actions.plugin.FindLocalPath;
 import support.actions.plugin.createComf;
 
 
@@ -49,9 +49,7 @@ public class SetupHandler extends AbstractHandler {
 	 * @wbp.parser.entryPoint
 	 */
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		FindLocalParth Fp = new FindLocalParth();
-		Fp.getSelection(event);
-
+		
 		Shell shell = win.getShell();
 
 		FirstScreenAuthInsert firstScreen = new FirstScreenAuthInsert(shell);

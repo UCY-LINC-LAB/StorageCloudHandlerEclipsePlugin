@@ -19,7 +19,7 @@ import support.actions.plugin.CompleteDialogScreen;
 import support.actions.plugin.CreateLocalPath;
 import support.actions.plugin.ErrorDialogScreen;
 import support.actions.plugin.FindDroboxPath;
-import support.actions.plugin.FindLocalParth;
+import support.actions.plugin.FindLocalPath;
 import support.actions.plugin.readConf;
 import org.eclipse.swt.widgets.Shell;
 
@@ -50,7 +50,7 @@ public class PullHandler extends AbstractHandler {
 	 */
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 
-		FindLocalParth Fp = new FindLocalParth();
+		FindLocalPath Fp = new FindLocalPath();
 		Fp.getSelection(event);
 
 		FindDroboxPath Fb = new FindDroboxPath();
