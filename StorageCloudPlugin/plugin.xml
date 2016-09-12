@@ -178,7 +178,7 @@
 						                  commandId="storage.cloud.file.dropdox.actions.my.account"
 						                  mnemonic="D"
 						                  id="storage.cloud.file.dropdox.actions.my.account.Menu"
-						                  label= "My Drobox Account"
+						                  label= "My Dropbox Account"
 						                   icon="/icons/actions/account.gif">
 	                			 </command>
 	                			
